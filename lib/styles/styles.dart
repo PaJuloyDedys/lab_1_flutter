@@ -17,10 +17,7 @@ const counterTextStyle = TextStyle(
   color: Color(0xFF3730A3),
 );
 
-const messageTextStyle = TextStyle(
-  fontSize: 16,
-  color: Colors.black87,
-);
+const messageTextStyle = TextStyle(fontSize: 16, color: Colors.black87);
 
 final inputDecoration = InputDecoration(
   labelText: 'Введи число або "Avada Kedavra"',

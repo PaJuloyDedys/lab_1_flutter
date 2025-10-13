@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import '../styles/styles.dart';
+import 'package:lab_1/styles/styles.dart';
 
 // Невеличкий “презентаційний” віджет (аналог dumb component у React)
 class CounterDisplay extends StatelessWidget {
-  const CounterDisplay({super.key, required this.value});
+  const CounterDisplay({
+    required this.value, // required має йти першим
+    super.key,
+  });
 
   final int value;
 
@@ -18,7 +21,7 @@ class CounterDisplay extends StatelessWidget {
           child: Text(
             '$value',
             key: ValueKey(value),
-            style: counterTextStyle,
+            style: counterTextStyle, // залишив як було у тебе
           ),
         ),
       ],

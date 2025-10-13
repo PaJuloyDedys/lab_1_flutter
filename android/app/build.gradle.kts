@@ -28,6 +28,10 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        ndk {
+            // збираємо тільки для емулятора x86_64
+            abiFilters += listOf("x86_64")
+        }
     }
 
     buildTypes {
