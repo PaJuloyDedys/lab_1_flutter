@@ -37,7 +37,8 @@ void main() {
     await tester.tap(_confirmBtn());
     await tester.pump();
 
-    // Перевіряємо, що лічильник став 5 (а не просто є текст "5" десь у повідомленні)
+    // Перевіряємо, що лічильник став 5
+    // (а не просто є текст "5" десь у повідомленні)
     expect(find.byKey(const ValueKey(5)), findsOneWidget);
   });
 
