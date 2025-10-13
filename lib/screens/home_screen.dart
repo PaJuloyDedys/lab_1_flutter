@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lab_1/widgets/counter_display.dart';
 import 'package:lab_1/styles/styles.dart';
+import 'package:lab_1/widgets/counter_display.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
