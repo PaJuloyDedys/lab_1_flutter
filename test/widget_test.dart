@@ -1,68 +1,60 @@
 // test/widget_test.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-// !!! ЗАМІНИ шлях нижче, щоб він збігався з name: у pubspec.yaml
 import 'package:lab_1/main.dart';
 
+/// Допоміжний пошук кнопки "Підтвердити" для будь-якого типу кнопки.
+Finder _confirmBtn() {
+  final filled = find.widgetWithText(FilledButton, 'Підтвердити');
+  if (filled.evaluate().isNotEmpty) return filled;
+
+  final elevated = find.widgetWithText(ElevatedButton, 'Підтвердити');
+  if (elevated.evaluate().isNotEmpty) return elevated;
+
+  // запасний варіант (натиск по тексту всередині кнопки)
+  return find.text('Підтвердити');
+}
+
 void main() {
-  testWidgets('Початкове значення лічильника 0 і +1 працює', (tester) async {
-    // Будуємо додаток (наш кореневий віджет тепер App, не MyApp)
+  testWidgets('Початкове значення 0 і +1 працює', (tester) async {
     await tester.pumpWidget(const App());
 
-    // На старті має бути “0”
-    expect(find.text('0'), findsOneWidget);
+    // Перевіряємо саме лічильник через ValueKey(0)
+    expect(find.byKey(const ValueKey(0)), findsOneWidget);
 
-    // Тиснемо на кнопку з іконкою додавання
     await tester.tap(find.byIcon(Icons.add));
-    await tester.pump(); // або await tester.pumpAndSettle();
+    await tester.pump();
 
-    // Очікуємо “1”
-    expect(find.text('1'), findsOneWidget);
+    expect(find.byKey(const ValueKey(1)), findsOneWidget);
   });
 
   testWidgets('Ввід числа додає до лічильника', (tester) async {
     await tester.pumpWidget(const App());
 
-    expect(find.text('0'), findsOneWidget);
+    expect(find.byKey(const ValueKey(0)), findsOneWidget);
 
-    expect(find.byType(TextField), findsOneWidget);
     await tester.enterText(find.byType(TextField), '5');
-
-    await tester.tap(
-      find
-              .widgetWithText(ElevatedButton, 'Підтвердити')
-              .first
-              .evaluate()
-              .isNotEmpty
-          ? find.widgetWithText(ElevatedButton, 'Підтвердити')
-          : find.widgetWithText(FilledButton, 'Підтвердити'),
-    );
+    await tester.tap(_confirmBtn());
     await tester.pump();
 
-    expect(find.text('5'), findsOneWidget);
+    // Перевіряємо, що лічильник став 5 (а не просто є текст "5" десь у повідомленні)
+    expect(find.byKey(const ValueKey(5)), findsOneWidget);
   });
 
-  testWidgets('Avada Kedavra скидає до 0', (tester) async {
+  testWidgets('"Avada Kedavra" скидає до 0', (tester) async {
     await tester.pumpWidget(const App());
 
+    // Спершу піднімемо лічильник до 3
     await tester.enterText(find.byType(TextField), '3');
-    await tester.tap(
-      find.widgetWithText(ElevatedButton, 'Підтвердити').evaluate().isNotEmpty
-          ? find.widgetWithText(ElevatedButton, 'Підтвердити')
-          : find.widgetWithText(FilledButton, 'Підтвердити'),
-    );
+    await tester.tap(_confirmBtn());
     await tester.pump();
-    expect(find.text('3'), findsOneWidget);
+    expect(find.byKey(const ValueKey(3)), findsOneWidget);
 
+    // Тепер магічна фраза — має скинути до 0
     await tester.enterText(find.byType(TextField), 'Avada Kedavra');
-    await tester.tap(
-      find.widgetWithText(ElevatedButton, 'Підтвердити').evaluate().isNotEmpty
-          ? find.widgetWithText(ElevatedButton, 'Підтвердити')
-          : find.widgetWithText(FilledButton, 'Підтвердити'),
-    );
+    await tester.tap(_confirmBtn());
     await tester.pump();
 
-    expect(find.text('0'), findsOneWidget);
+    expect(find.byKey(const ValueKey(0)), findsOneWidget);
   });
 }
