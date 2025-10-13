@@ -15,11 +15,7 @@ class CounterDisplay extends StatelessWidget {
         const SizedBox(height: 6),
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 220),
-          child: Text(
-            '$value',
-            key: ValueKey(value),
-            style: counterTextStyle,
-          ),
+          child: Text('$value', key: ValueKey(value), style: counterTextStyle),
         ),
       ],
     );

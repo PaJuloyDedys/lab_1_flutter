@@ -13,7 +13,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Lab 1 Flutter',
-      theme: appTheme, // з styles.dart
+      theme: appTheme,
       home: const HomeScreen(),
     );
   }

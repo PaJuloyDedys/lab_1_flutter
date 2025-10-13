@@ -29,12 +29,15 @@ void main() {
     expect(find.byType(TextField), findsOneWidget);
     await tester.enterText(find.byType(TextField), '5');
 
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Підтвердити')
-        .first
-        .evaluate()
-        .isNotEmpty
-        ? find.widgetWithText(ElevatedButton, 'Підтвердити')
-        : find.widgetWithText(FilledButton, 'Підтвердити'));
+    await tester.tap(
+      find
+              .widgetWithText(ElevatedButton, 'Підтвердити')
+              .first
+              .evaluate()
+              .isNotEmpty
+          ? find.widgetWithText(ElevatedButton, 'Підтвердити')
+          : find.widgetWithText(FilledButton, 'Підтвердити'),
+    );
     await tester.pump();
 
     expect(find.text('5'), findsOneWidget);
