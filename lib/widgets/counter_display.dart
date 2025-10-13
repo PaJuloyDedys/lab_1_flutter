@@ -1,26 +1,22 @@
-// lib/widgets/counter_display.dart
 import 'package:flutter/material.dart';
 import 'package:lab_1/styles/styles.dart';
 
+// Невеличкий “презентаційний” віджет (аналог dumb component у React)
 class CounterDisplay extends StatelessWidget {
-  const CounterDisplay({
-    super.key,
-    required this.counter, // required спочатку
-    this.message,
-  });
+  const CounterDisplay({super.key, required this.value});
 
-  final int counter;
-  final String? message;
+  final int value;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Лічильник: $counter', style: AppTextStyles.counter),
-        if (message != null) ...[
-          const SizedBox(height: 8),
-          Text(message!, style: AppTextStyles.message),
-        ],
+        Text('Лічильник', style: Theme.of(context).textTheme.titleLarge),
+        const SizedBox(height: 6),
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 220),
+          child: Text('$value', key: ValueKey(value), style: counterTextStyle),
+        ),
       ],
     );
   }
