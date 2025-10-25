@@ -24,3 +24,4 @@ final class AppRoutes {
   static MaterialPageRoute _page(Widget child) =>
       MaterialPageRoute(builder: (_) => child);
 }
+
