@@ -13,7 +13,7 @@ class MovieWatchlistApp extends StatelessWidget {
       title: 'Movie Watchlist',
       theme: appTheme,
       onGenerateRoute: AppRoutes.onGenerate,
-      initialRoute: AppRoutes.login, // або AppRoutes.home, як вирішиш
+      initialRoute: AppRoutes.login,
       debugShowCheckedModeBanner: false,
     );
   }
